@@ -13,9 +13,9 @@ public class MaxThreadsMain {
 	  
     List<Thread> threads = new ArrayList<Thread>();
     for(int wj = 0; wj< 20 ; wj++){
-    System.out.println("attempt: "+ wj);
+    
     try {
-      for (int i = 0; i <= 40 * 1000; i += BATCH_SIZE) {
+      for (int i = 0; i <= 50 * 1000; i += BATCH_SIZE) {
         long start = System.currentTimeMillis();
         addThread(threads, BATCH_SIZE);
         long end = System.currentTimeMillis();
@@ -28,23 +28,21 @@ public class MaxThreadsMain {
       e.printStackTrace();
     }
     for(Thread th:threads){
-    	th.interrupt();
+    	th.stop();
     }
     threads.clear();
+    System.out.println(threads.size());
+    Thread.sleep(5000);
     }
   }
 
   private static void addThread(List<Thread> threads, int num) {
     for (int i = 0; i < num; i++) {
       Thread t = new Thread(new Runnable() {
-        volatile boolean run=true;
-        public void interrupt() {
-        	run = false;
-        }
-    	@Override
+        @Override
         public void run() {
           try {
-            while (!Thread.interrupted() && run) {
+            while (!Thread.interrupted()) {
               Thread.sleep(1000);
             }
           } catch (InterruptedException ignored) {

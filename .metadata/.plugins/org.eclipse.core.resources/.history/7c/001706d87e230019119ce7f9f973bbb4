@@ -27,6 +27,7 @@ public class MaxThreadsMain {
       System.err.printf("After creating %,d threads, ", threads.size());
       e.printStackTrace();
     }
+    System.out.println("prestop");
     for(Thread th:threads){
     	th.interrupt();
     }

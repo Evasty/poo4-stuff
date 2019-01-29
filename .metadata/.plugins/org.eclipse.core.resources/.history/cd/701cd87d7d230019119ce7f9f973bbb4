@@ -13,9 +13,9 @@ public class MaxThreadsMain {
 	  
     List<Thread> threads = new ArrayList<Thread>();
     for(int wj = 0; wj< 20 ; wj++){
-    System.out.println("attempt: "+ wj);
+    System.out.println(wj);
     try {
-      for (int i = 0; i <= 40 * 1000; i += BATCH_SIZE) {
+      for (int i = 0; i <= 30 * 1000; i += BATCH_SIZE) {
         long start = System.currentTimeMillis();
         addThread(threads, BATCH_SIZE);
         long end = System.currentTimeMillis();
@@ -27,10 +27,14 @@ public class MaxThreadsMain {
       System.err.printf("After creating %,d threads, ", threads.size());
       e.printStackTrace();
     }
+    System.out.println("prestop");
     for(Thread th:threads){
     	th.interrupt();
     }
+    System.out.println("th cleared");
     threads.clear();
+    System.out.println(threads.size());
+    Thread.sleep(5000);
     }
   }
 
