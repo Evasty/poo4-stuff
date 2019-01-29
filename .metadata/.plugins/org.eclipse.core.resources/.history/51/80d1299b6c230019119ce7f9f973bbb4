@@ -31,7 +31,6 @@ public class MaxThreadsMain {
     	th.interrupt();
     }
     threads.clear();
-    Thread.sleep(5000);
     }
   }
 

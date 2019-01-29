@@ -6,7 +6,7 @@ import java.util.List;
 
 public class MaxThreadsMain {
 
-  public static final int BATCH_SIZE = 30000;
+  public static final int BATCH_SIZE = 4000;
 
   public static void main(String... args) throws InterruptedException {
 	
@@ -15,7 +15,7 @@ public class MaxThreadsMain {
     for(int wj = 0; wj< 20 ; wj++){
     
     try {
-      for (int i = 0; i <= 150 * 1000; i += BATCH_SIZE) {
+      for (int i = 0; i <= 100 * 1000; i += BATCH_SIZE) {
         long start = System.currentTimeMillis();
         addThread(threads, BATCH_SIZE);
         long end = System.currentTimeMillis();
@@ -28,10 +28,9 @@ public class MaxThreadsMain {
       e.printStackTrace();
     }
     for(Thread th:threads){
-    	th.interrupt();
+    	
     }
-    threads.clear();
-    Thread.sleep(5000);
+    
     }
   }
 
