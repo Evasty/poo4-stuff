@@ -1,0 +1,39 @@
+package server;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.net.Socket;
+
+public class ClientHandler implements Runnable {
+
+	private String name;
+	final DataInputStream in;
+	final DataOutputStream out;
+	Socket s;
+	boolean isLogged;
+	
+	
+	
+	public ClientHandler(Socket s, String name, DataInputStream in, DataOutputStream out) {
+		this.in = in;
+		this.out = out;
+		this.name = name;
+		
+	}
+
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		String received;
+		while(true) {
+			try {
+				received = in.readUTF();
+				System.out.println(received);
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+				break
+			}
+		}
+	}}

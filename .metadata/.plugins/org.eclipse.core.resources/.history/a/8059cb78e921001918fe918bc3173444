@@ -1,0 +1,80 @@
+package server;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+
+
+public class SocketServer extends Thread{
+	
+	public static final int PORT_NUMBER = 8081;
+	protected Socket socket; 
+	
+	
+	private SocketServer(Socket socket) {
+		this.socket = socket;
+		System.out.println("new puticlient connected from" + socket.getInetAddress().getHostAddress());
+		start();
+	}
+	
+	/*
+	public void run() {
+		InputStream in = null;
+		OutputStream out = null;
+		
+		try {
+			in = socket.getInputStream();
+			out = socket.getOutputStream();
+			BufferedReader buffer = new BufferedReader(new InputStreamReader(in));
+			String req;
+			while(( req = buffer.readLine()) != null) {
+				System.out.println("msg received" + req);
+				req += '\n';
+				out.write(req.getBytes());
+			}
+			
+		}catch(IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	*/
+	public static void main(String[] args) {
+		final AtomicBoolean shouldRun = new AtomicBoolean(true);
+	    try  {
+	        final ServerSocket server = new ServerSocket(2123);
+	        Thread serverThread = new Thread(){
+	           public void run() {
+	              try {
+	                 while(shouldRun.get()) {
+	                 Socket s = server.accept();
+	                 s.close();
+	             Thread.sleep(1);
+	                }
+	              } catch(Exception ex) {
+	                ex.printStackTrace();
+	              }
+	           }
+	        };
+	        serverThread.start();
+	        Socket[] clients = new Socket[150];
+	        for (int i = 0; i < clients.length; i++) {
+	            clients[i] = new Socket("localhost", 2123);
+	            System.out.printf("Client %2d: " + clients[i] + "%n", i);
+	            clients[i].close();
+	        }
+	        shouldRun.set(false);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	       shouldRun.set(false);
+	    }
+
+	  }
+}

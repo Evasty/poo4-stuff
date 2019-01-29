@@ -1,0 +1,43 @@
+package server;
+
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutput;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+
+
+public class SocketServer extends Thread{
+	
+	static int i=0;
+	static ArrayList<ClientHandler> ar = new ArrayList<ClientHandler>();
+	
+	
+	
+	public static void main(String[] args) throws IOException {
+		
+        ServerSocket server = new ServerSocket(5056);
+        while(true) {
+        		Socket s = null;
+        		s = server.accept();
+        		System.out.println("New puto client connected to the server "+ s);
+        		DataInputStream in = new DataInputStream(s.getInputStream());
+        		DataOutputStream out = new DataOutputStream(s.getOutputStream());
+        		ClientHandler ch = new ClientHandler(s, "client"+i ,in, out);
+        		Thread t = new Thread(ch);
+        		t.start();
+        		i++;
+        	
+        	
+        }
+        
+    }
+}

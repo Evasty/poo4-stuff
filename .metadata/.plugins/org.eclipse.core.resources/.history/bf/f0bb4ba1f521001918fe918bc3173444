@@ -1,0 +1,29 @@
+package client;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+
+
+public class Connection {
+	public static int serverPort = 1234;
+	
+	public static void main(String args[]) throws IOException {
+		
+		InetAddress ip = InetAddress.getByName("localhost");
+		while(true) {
+		Socket s = new Socket(ip, serverPort);
+		
+		DataInputStream in = new DataInputStream(s.getInputStream());
+		DataOutputStream out = new DataOutputStream(s.getOutputStream());
+		}
+	
+		
+	}
+	
+}

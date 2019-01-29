@@ -1,0 +1,83 @@
+package server;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+
+
+public class SocketServer extends Thread{
+	
+	public static final int PORT_NUMBER = 8081;
+	public final AtomicBoolean shouldRun = new AtomicBoolean(true);
+	protected Socket socket; 
+	
+	
+	private SocketServer(Socket socket) {
+		this.socket = socket;
+		System.out.println("new puticlient connected from" + socket.getInetAddress().getHostAddress());
+		start();
+	}
+	
+	/*
+	public void run() {
+		InputStream in = null;
+		OutputStream out = null;
+		
+		try {
+			in = socket.getInputStream();
+			out = socket.getOutputStream();
+			BufferedReader buffer = new BufferedReader(new InputStreamReader(in));
+			String req;
+			while(( req = buffer.readLine()) != null) {
+				System.out.println("msg received" + req);
+				req += '\n';
+				out.write(req.getBytes());
+			}
+			
+		}catch(IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	*/
+	public static void main(String[] args) {
+        System.out.println("PutiSocketServer Example");
+        ServerSocket server = null;
+        try {
+            server = new ServerSocket(PORT_NUMBER);
+            while (true) {
+            	
+            	public void run() {
+            		try {
+            			while()
+            			
+            		}catch(Exception ex) {
+            			ex.printStackTrace();
+            		}
+            	}
+            	
+            	Socket suck = server.accept();
+                /**
+                 * create a new {@link SocketServer} object for each connection
+                 * this will allow multiple client connections
+                 */
+                new SocketServer(server.accept());
+            }
+        } catch (IOException ex) {
+            System.out.println("Unable to start server.");
+        } finally {
+            try {
+                if (server != null)
+                    server.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+}

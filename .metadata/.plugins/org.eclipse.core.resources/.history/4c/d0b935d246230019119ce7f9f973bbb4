@@ -1,0 +1,47 @@
+package client;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ConnectException;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+
+public class Connection {
+	public static int serverPort = 8081;
+	static int i = 0;
+	static int trynum = 0;
+
+	public static void main(String args[]) throws IOException {
+		for (int j = 0; j < 10; j++, trynum++) {
+			ArrayList<Socket> sucketlist = new ArrayList<Socket>();
+			i = 0;
+
+			try {
+				InetAddress ip = InetAddress.getByName("localhost");
+				while (true) {
+
+					Socket s = new Socket(ip, serverPort);
+					sucketlist.add(s);
+					DataInputStream in = new DataInputStream(s.getInputStream());
+					DataOutputStream out = new DataOutputStream(s.getOutputStream());
+					i++;
+				}
+			} catch (Throwable e) {
+				// e.printStackTrace();
+				for (Socket it : sucketlist) {
+					it.close();
+					System.out.println(i);
+
+				}
+				System.out.println(i);
+			}
+
+		}
+
+	}
+
+}
