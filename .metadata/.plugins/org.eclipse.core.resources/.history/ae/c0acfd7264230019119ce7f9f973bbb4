@@ -19,7 +19,7 @@ public class Connection {
 
 	public static void main(String args[]) throws IOException{
 
-		for (int j = 0; j < 20; j++, trynum++) {
+		for (int j = 0; j < 5; j++, trynum++) {
 			i = 0;
 
 			try {

@@ -24,7 +24,7 @@ public class MaxThreadsMain {
       }
     } catch (Throwable e) {
       System.err.printf("After creating %,d threads, ", threads.size());
-      e.printStackTrace();
+      //e.printStackTrace();
     }
 
     
